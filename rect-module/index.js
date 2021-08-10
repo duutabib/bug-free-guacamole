@@ -1,9 +1,5 @@
-var rect = {
-
-	perimeter: (x, y) => (2*(x+y)), // arrows function assignments for easy scope & avoid Javascript OOP
-	area: (x, y) => (x*y)
-};
-
+var rect = require("./rectangle"); // import rectangle module 
+ 
 
 function computeRect(l, b) {
 
