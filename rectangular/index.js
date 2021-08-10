@@ -1,10 +1,12 @@
 var rect = {
-	perimeter: (x, y) => (2*(x+y)),
+
+	perimeter: (x, y) => (2*(x+y)), // arrows function assignments for easy scope & avoid Javascript OOP
 	area: (x, y) => (x*y)
 };
 
 
-function solveRect(l, b) {
+function computeRect(l, b) {
+
 	console.log("computing for rectangle with l = " + l + " and b = " + b);
 	
 	if ( l <= 0 || b<= 0) {
@@ -17,7 +19,7 @@ function solveRect(l, b) {
 }
 
 
-solveRect(2, 4);
-solveRect(3, -4);
-solveRect(5, 0);
-solveRect(7, 4);
+computeRect(2, 4);
+computeRect(3, -4);
+computeRect(5, 0);
+computeRect(7, 4);
