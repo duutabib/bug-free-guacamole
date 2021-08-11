@@ -43,9 +43,13 @@ const server = http.Server((req, res) => {
 		
 		return;
 	}
+	}
+
 });
 
 // start server
 server.listen(port, hostname, () => {
 	console.log(`Server running at http://${hostname}:${port}`) // backquotes for variables 
 });
+
+
