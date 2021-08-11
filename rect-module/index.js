@@ -5,13 +5,18 @@ function computeRect(l, b) {
 
 	console.log("computing for rectangle with l = " + l + " and b = " + b);
 	
-	if ( l <= 0 || b<= 0) {
-		console.log('rectangle dimensions > 0');
-	}
-	else {
-		console.log("Area of rectangle is " + rect.area(l, b));
-		console.log("Perimeter of rectangle is " + rect.perimeter(l, b));
-	}
+	rect(l, b, (err, rectangle) => { 
+		if (err) {
+			console.log("Error: ", err.message);
+
+		}	
+		else {
+			console.log("rectangle area is " + rectangle.area());
+			console.log("perimeter is " + rectangle.perimeter());
+		}
+	});
+	console.log("This line is after the call to rect");
+
 }
 
 
