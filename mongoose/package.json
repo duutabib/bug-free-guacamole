@@ -1,0 +1,19 @@
+{
+  "name": "mongoose",
+  "version": "1.0.0",
+  "description": "\"Mongo ODM\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index"
+  },
+  "keywords": [
+    "mongo",
+    "ODM"
+  ],
+  "author": "duutabib",
+  "license": "ISC",
+  "dependencies": {
+    "mongoose": "^5.13.7"
+  }
+}
