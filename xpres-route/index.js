@@ -8,8 +8,8 @@ const bodyParser = require('body-parser');
 
 
 const dishRouter = require('./routes/dishRouter');
-const leaderRouter = require('./routes/leader');
-const promoRouter = require('./routes/promo');
+const leaderRouter = require('./routes/leaderRouter');
+const promoRouter = require('./routes/promoRouter');
 const hostname = 'localhost' ;
 const port = 3000;
 
