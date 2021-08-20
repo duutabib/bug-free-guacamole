@@ -15,17 +15,17 @@ leaderRouter.route('/')
 	next();
 })
 .get((req, res, next) => {
-	res.end('sending leaderes data through +++========');
+	res.end('sending leaders data through +++========');
 })
 .post((req, res, next) => {
-	res.end('seeing the leaderes come through ' + req.body.name + ' with details: ' + req.body.description);
+	res.end('seeing the leaders come through ' + req.body.name + ' with details: ' + req.body.description);
 })
 .put((req, res, next) => {
 	res.statusCode = 403;
-	res.end('no space for more leaderes');
+	res.end('no space for more leaders');
 })
 .delete((req, res, next) => {
-	res.end('deleting all leaderes');
+	res.end('deleting all leaders');
 });
 
 // create route for leaderId endpoint
@@ -36,7 +36,7 @@ leaderRouter.route('/:leaderId')
 	next();
 })
 .get((req, res, next) => {
-	res.end('sending leaderes data through +++========');
+	res.end('sending leaders data through +++========');
 })
 .post((req, res, next) => {
 	res.statusCode = 403;
