@@ -18,14 +18,14 @@ promoRouter.route('/')
 	res.end('sending promoes data through +++========');
 })
 .post((req, res, next) => {
-	res.end('seeing the promoes come through ' + req.body.name + ' with details: ' + req.body.description);
+	res.end('seeing the promos come through ' + req.body.name + ' with details: ' + req.body.description);
 })
 .put((req, res, next) => {
 	res.statusCode = 403;
-	res.end('no space for more promoes');
+	res.end('no space for more promos');
 })
 .delete((req, res, next) => {
-	res.end('deleting all promoes');
+	res.end('deleting all promos');
 });
 
 // create route for promoId endpoint
@@ -36,7 +36,7 @@ promoRouter.route('/:promoId')
 	next();
 })
 .get((req, res, next) => {
-	res.end('sending promoes data through +++========');
+	res.end('sending promos data through +++========');
 })
 .post((req, res, next) => {
 	res.statusCode = 403;
