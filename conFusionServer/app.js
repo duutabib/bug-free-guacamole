@@ -31,30 +31,44 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(cookieParser('0244886939'));
 
 //Add authentication --- where does this typical go?
 function auth (req, res, next) {
-	console.log(req.headers);
-	var authHeader = req.headers.authorization;	
-	if (!authHeader) {
-		var err = new Error('User not authenticated!');
-		res.setHeader('WWW-Authenticate', 'Basic');
-		err.status = 401;
-		return	next(err);
+	console.log(req.signedCookies);
+	if (!req.signedCookies.user){
+		var authHeader = req.headers.authorization;	
+		if (!authHeader) {
+			var err = new Error('User not authenticated!');
+			res.setHeader('WWW-Authenticate', 'Basic');
+			err.status = 401;
+			return	next(err);
+		}
+		
+		var auth = new Buffer.from(authHeader.split(' ')[1], 'base64').toString().split(':');
+		var username = auth[0];
+		var password = auth[1];
+		console.log(username, password)	
+		if (username == 'admin' && password == 'password') {
+			res.cookie('user', 'admin',{signed: true});
+			next();
+		}else {
+			var err = new Error('User not authenticated!');
+			res.setHeader('WWW-Authenticate', 'Basic');
+			err.status = 401;
+			next(err);
+		}
 	}
-	
-	var auth = new Buffer.from(authHeader.split(' ')[1], 'base64').toString().split(':');
-	var username = auth[0];
-	var password = auth[1];
-	console.log(username, password)	
-	if (username == 'admin' && password == 'password') {
-		next();
-	}else {
-		var err = new Error('User not authenticated!');
-		res.setHeader('WWW-Authenticate', 'Basic');
-		err.status = 401;
-		next(err);
+	else { 
+		if (req.signedCookies.user == 'admin') {
+			next();
+		}else {
+			var err=  new Error('User not authenticated');
+			
+			res.setHeader('WWW-Authenticate', 'Basic');
+			err.status = 401;
+			return next(err);
+		}
 	}
 }
 
