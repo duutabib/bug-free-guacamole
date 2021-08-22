@@ -3,6 +3,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var session = require('./express-session');
+var FileStore = require('session-file-store')(session);
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -31,12 +33,22 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser('0244886939'));
+// app.use(cookieParser('0244886939')); kill cookies when using sessions
+// sessions middleware
+
+app.use(session({
+	name: 'session-id',
+	secret: '0244886939',
+	saveUninitialized: false,
+	resave: false,
+	store: new FileStore
+		
+}));
 
 //Add authentication --- where does this typical go?
 function auth (req, res, next) {
-	console.log(req.signedCookies);
-	if (!req.signedCookies.user){
+	console.log(req.session);
+	if (!req.session.user){
 		var authHeader = req.headers.authorization;	
 		if (!authHeader) {
 			var err = new Error('User not authenticated!');
@@ -50,7 +62,7 @@ function auth (req, res, next) {
 		var password = auth[1];
 		console.log(username, password)	
 		if (username == 'admin' && password == 'password') {
-			res.cookie('user', 'admin',{signed: true});
+			req.session.user = 'admin'; 
 			next();
 		}else {
 			var err = new Error('User not authenticated!');
@@ -60,7 +72,7 @@ function auth (req, res, next) {
 		}
 	}
 	else { 
-		if (req.signedCookies.user == 'admin') {
+		if (req.session.user == 'admin') {
 			next();
 		}else {
 			var err=  new Error('User not authenticated');
